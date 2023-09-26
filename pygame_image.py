@@ -11,16 +11,18 @@ def main():
     charactor_img = pg.transform.flip(charactor_img, True, False)
     rotated_charactor_img = pg.transform.rotozoom(charactor_img, 10, 1.0)
     img_list = [charactor_img, rotated_charactor_img]
+    display_width, display_size_h = pg.display.get_surface().get_size()
+    bgimg_width = bg_img.get_width()
 
     tmr = 0
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
 
-        x = tmr % 1600
+        x = tmr % bgimg_width
         screen.blit(bg_img, [-x, 0])
-        if x >= 800:
-            screen.blit(bg_img, [1600 - x, 0])
+        if x >= bgimg_width - display_width:
+            screen.blit(bg_img, [bgimg_width - x, 0])
         screen.blit(img_list[tmr % len(img_list)], [300, 200])
         pg.display.update()
         tmr += 1        
