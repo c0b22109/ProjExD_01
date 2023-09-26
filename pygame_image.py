@@ -7,6 +7,9 @@ def main():
     screen = pg.display.set_mode((800, 600))
     clock  = pg.time.Clock()
     bg_img = pg.image.load("ex01/fig/pg_bg.jpg")
+    charactor_img = pg.image.load("ex01/fig/3.png")
+    pg.transform.flip(charactor_img, True, False)
+
     tmr = 0
     while True:
         for event in pg.event.get():
