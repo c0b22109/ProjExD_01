@@ -9,8 +9,9 @@ def main():
     bg_img = pg.image.load("ex01/fig/pg_bg.jpg")
     charactor_img = pg.image.load("ex01/fig/3.png")
     charactor_img = pg.transform.flip(charactor_img, True, False)
-    rotated_charactor_img = pg.transform.rotozoom(charactor_img, 10, 1.0)
-    img_list = [charactor_img, rotated_charactor_img]
+#    rotated_charactor_img = pg.transform.rotozoom(charactor_img, 10, 1.0)
+#    img_list = [charactor_img, rotated_charactor_img]
+    img_list = [pg.transform.rotozoom(charactor_img, i, 1.0) for i in range(10)]
     display_width, display_size_h = pg.display.get_surface().get_size()
     bgimg_width = bg_img.get_width()
 
@@ -23,7 +24,10 @@ def main():
         screen.blit(bg_img, [-x, 0])
         if x >= bgimg_width - display_width:
             screen.blit(bg_img, [bgimg_width - x, 0])
-        screen.blit(img_list[tmr % len(img_list)], [300, 200])
+        img_list_index = tmr % (len(img_list) * 2)
+        if img_list_index >= len(img_list):
+            img_list_index = len(img_list) * 2 - 1 - img_list_index
+        screen.blit(img_list[img_list_index], [300, 200])
         pg.display.update()
         tmr += 1        
         clock.tick(100)
